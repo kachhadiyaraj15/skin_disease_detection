@@ -1,1 +1,1 @@
-# skin_disease_detection
+# Skin Disease Detection
