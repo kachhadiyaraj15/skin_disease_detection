@@ -1,0 +1,41 @@
+<nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    <div class="text-left navbar-brand-wrapper d-flex align-items-center justify-content-between">
+        <a class="navbar-brand brand-logo text-white" href="/user/load_dashboard">Chatbot</a>
+        <button class="navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
+        </button>
+    </div>
+    <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <ul class="navbar-nav">
+
+        </ul>
+        <ul class="navbar-nav navbar-nav-right">
+
+            <ul class="navbar-nav navbar-nav-right">
+                <li class="nav-item nav-profile dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                        <img src="{{ session["profile_picture"] }}"alt="profile"/>
+                        <span class="nav-profile-name">{{ session['name'] }}</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/user/account_details?loginUsername={{ request.cookies.get('login_username') }}">
+                            <i class="mdi mdi-account text-primary"></i>
+                            Account
+                        </a>
+
+                        <a class="dropdown-item" href="/admin/logout_session">
+                            <i class="mdi mdi-logout text-primary"></i>
+                            Logout
+                        </a>
+
+                    </div>
+                </li>
+            </ul>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+        </button>
+    </div>
+</nav>

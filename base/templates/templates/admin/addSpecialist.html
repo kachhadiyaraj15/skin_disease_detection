@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Health care chatbot</title>
+    <link rel="stylesheet" href="../../static/adminResources/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/style.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/jquery.toast.min.css">
+    <link rel="shortcut icon" href="../../static/adminResources/image/favicon.png"/>
+</head>
+
+<body class="sidebar-light">
+<div class="container-scroller">
+    {% include 'admin/header.html' %}
+
+    <div class="container-fluid page-body-wrapper">
+
+        {% include 'admin/menu.html' %}
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Add Specialist</h4>
+                                <form class="cmxform" method="post" action="/admin/insert_specialist" onsubmit="return addSpecialist()">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label for="firstname">Specialist Name</label>
+                                            <input id="specialistName" class="form-control" name="specialistName"
+                                                   type="text" placeholder="Specialist Name" onkeypress='return event.charCode>=65 && event.charCode<=90 || event.charCode>=97 && event.charCode<=122|| event.charCode==32' >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="specialistQualification">Specialist Qualification</label>
+                                            <input id="specialistQualification" class="form-control" name="specialistQualification"
+                                                   type="text" placeholder="Specialist Qualification" onkeypress='return event.charCode>=65 && event.charCode<=90 || event.charCode>=97 && event.charCode<=122|| event.charCode==32'>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="specialistContact">Specialist Contact Number</label>
+                                            <input id="specialistContact" class="form-control" name="specialistContact"
+                                                   type="text" placeholder="Specialist Contact Number" maxlength="10" minlength="10" onkeypress='return (event.charCode>=48 && event.charCode<=57)'>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="gender">Specialist Gender</label><br>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-4">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input type="radio" class="form-check-input"
+                                                                       name="specialistGender" id="specialistGender"
+                                                                       value="M" checked>
+                                                                Male
+                                                                <i class="input-helper"></i></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input type="radio" class="form-check-input"
+                                                                       name="specialistGender" id="specialistGender"
+                                                                       value="F">
+                                                                Female
+                                                                <i class="input-helper"></i></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="specialistEmail">Specialist Email</label>
+                                            <input id="specialistEmail" class="form-control" name="specialistEmail"
+                                                   type="email" placeholder="Specialist Email" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="specialistAddress">Specialist Address</label>
+                                            <input id="specialistAddress" class="form-control" name="specialistAddress"
+                                                   type="text" placeholder="Specialist Address" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleSelectGender">Specialist Pincode</label>
+                                            <select class="form-control" id="specialistPincode"
+                                                    name="specialistPincode" required>
+                                                <option selected>Select Pincode</option>
+                                                {% for row in area_vo_list %}
+                                                    <option value="{{ row['area_id'] }}">{{ row['area_pincode'] }}</option>
+                                                {% endfor %}
+                                            </select>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleSelectGender">Specialist Disease</label>
+                                            <select class="form-control" id="specialistDisease"
+                                                    name="specialistDisease" required>
+                                                <option selected>Select Disease</option>
+                                                {% for row in diease_vo_list %}
+                                                    <option value="{{ row['disease_id'] }}"
+                                                            placeholder="Specialist Disease">{{ row['disease_name'] }}</option>
+                                                {% endfor %}
+                                            </select>
+
+                                        </div>
+                                        <input class="btn btn-primary" type="submit" value="Submit">
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% include 'admin/footer.html' %}
+        </div>
+    </div>
+</div>
+<script src="../../static/adminResources/js/vendor.bundle.base.js"></script>
+<script src="../../static/adminResources/js/off-canvas.js"></script>
+<script src="../../static/adminResources/js/hoverable-collapse.js"></script>
+<script src="../../static/adminResources/js/template.js"></script>
+<script src="../../static/adminResources/js/settings.js"></script>
+<script src="../../static/adminResources/js/todolist.js"></script>
+<script src="../../static/adminResources/js/jquery.validate.min.js"></script>
+<script src="../../static/adminResources/js/bootstrap-maxlength.min.js"></script>
+<script src="../../static/adminResources/js/form-validation.js"></script>
+<script src="../../static/adminResources/js/bt-maxLength.js"></script>
+<script src="../../static/adminResources/js/jquery.toast.min.js"></script>
+<script src="../../static/adminResources/js/toaster.js"></script>
+<script src="../../static/adminResources/js/customvalidation.js"></script>
+</body>
+</html>

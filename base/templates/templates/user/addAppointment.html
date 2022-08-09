@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Health care chatbot</title>
+    <link rel="stylesheet" href="../../static/adminResources/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/style.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/jquery.toast.min.css">
+    <link rel="shortcut icon" href="../../static/adminResources/image/favicon.png"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var dtToday = new Date();
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate();
+            var year = dtToday.getFullYear();
+            if (month < 10)
+                month = '0' + month.toString();
+            if (day < 10)
+                day = '0' + day.toString();
+            var maxDate = year + '-' + month + '-' + day;
+            $('#appointmentDate').attr('min', maxDate);
+        })
+    </script>
+
+</head>
+<body class="sidebar-light">
+<div class="container-scroller">
+    {% include 'user/header.html' %}
+    <div class="container-fluid page-body-wrapper">
+
+        {% include 'user/menu.html' %}
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 style="background-image: linear-gradient(90deg, #25378b, transparent);height: 50px; padding:20px 0px 40px 20px; color: white"
+                                    class="card-title">Appointment Date and Time</h4>
+                                <form class="cmxform" method="post" action="/user/insert_appointment">
+                                <input type="hidden" name="specialistId" value="{{ specialist_vo_list[0][0]["specialist_id"] }}">
+                                <input type="hidden" name="classificationId" value="{{ classification_id }}">
+                                    <div class="content-wrapper">
+                                        <div class="row">
+                                            <div class="col-md-6 grid-margin stretch-card">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Specialist Details</h4>
+                                                        <form class="cmxform" method="post"
+                                                              action="/admin/insert_specialist"
+                                                              onsubmit="return addSpecialist()">
+                                                            <fieldset>
+                                                                <div class="form-group">
+                                                                    <label for="firstname">Specialist Name</label>
+                                                                    <input id="specialistName" class="form-control"
+                                                                           name="specialistName"
+                                                                           value="{{ specialist_vo_list[0][0]["specialist_name"] }}"
+                                                                           type="text" disabled>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="specialistQualification">Specialist
+                                                                        Qualification</label>
+                                                                    <input id="specialistQualification"
+                                                                           class="form-control"
+                                                                           name="specialistQualification"
+                                                                           type="text"
+                                                                           value="{{ specialist_vo_list[0][0]["specialist_qualification"] }}"
+                                                                           disabled>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="specialistContact">Specialist Contact
+                                                                        Number</label>
+                                                                    <input id="specialistContact" class="form-control"
+                                                                           name="specialistContact"
+                                                                           type="text"
+                                                                           value="{{ specialist_vo_list[0][0]["specialist_contact"] }}" disabled>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="gender">Specialist Gender</label><br>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            {% if specialist_vo_list[0][0]["specialist_gender"]=="M" %}
+                                                                                <div class="form-check">
+                                                                                    <label class="form-check-label">
+                                                                                        <input type="radio"
+                                                                                               class="form-check-input"
+                                                                                               name="specialistGender"
+                                                                                               id="specialistGender"
+                                                                                               value="M">
+                                                                                        Male
+                                                                                        <i class="input-helper"></i></label>
+                                                                                </div>
+                                                                                <div class="form-check">
+                                                                                    <label class="form-check-label">
+                                                                                        <input type="radio"
+                                                                                               class="form-check-input"
+                                                                                               name="specialistGender"
+                                                                                               id="specialistGender"
+                                                                                               value="F" checked
+                                                                                               disabled>
+                                                                                        Female
+                                                                                        <i class="input-helper"></i></label>
+                                                                                </div>
+                                                                            {% else %}
+                                                                                <div class="form-check">
+                                                                                    <label class="form-check-label">
+                                                                                        <input type="radio"
+                                                                                               class="form-check-input"
+                                                                                               name="specialistGender"
+                                                                                               id="specialistGender"
+                                                                                               value="M" checked
+                                                                                               disabled>
+                                                                                        Male
+                                                                                        <i class="input-helper"></i></label>
+                                                                                </div>
+                                                                                <div class="form-check">
+                                                                                    <label class="form-check-label">
+                                                                                        <input type="radio"
+                                                                                               class="form-check-input"
+                                                                                               name="specialistGender"
+                                                                                               id="specialistGender"
+                                                                                               value="F">
+                                                                                        Female
+                                                                                        <i class="input-helper"></i></label>
+                                                                                </div>
+                                                                            {% endif %}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="specialistEmail">Specialist
+                                                                        Email</label>
+                                                                    <input id="specialistEmail" class="form-control"
+                                                                           name="specialistEmail"
+                                                                           type="email"
+                                                                           value="{{ specialist_vo_list[0][0]["specialist_email"] }}"
+                                                                           disabled>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="specialistAddress">Specialist
+                                                                        Address</label>
+                                                                    <input id="specialistAddress" class="form-control"
+                                                                           name="specialistAddress"
+                                                                           type="text"
+                                                                           value="{{ specialist_vo_list[0][0]["specialist_address"] }}"
+                                                                           disabled>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleSelectGender">Specialist
+                                                                        Pincode</label>
+                                                                    <input id="specialistAddress" class="form-control"
+                                                                           name="specialistAddress"
+                                                                           type="text"
+                                                                           value="{{ specialist_vo_list[0][1]["area_name"] }}" disabled>
+
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleSelectGender">Specialist
+                                                                        Disease</label>
+                                                                    <input id="specialistAddress" class="form-control"
+                                                                           name="specialistAddress"
+                                                                           type="text"
+                                                                           value="{{ specialist_vo_list[0][2]["disease_name"] }}" disabled>
+                                                                </div>
+                                                            </fieldset>
+                                                        </form>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 grid-margin stretch-card">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Appoiment Slot</h4>
+                                                        <div class="form-group">
+                                                            <label for="specialistEmail">Appointment Date</label>
+                                                            <input id="appointmentDate" class="form-control"
+                                                                   name="appointmentDate"
+                                                                   type="date" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleSelectGender">Appointment Time</label>
+                                                            <select class="form-control" id="appointmentTime"
+                                                                    name="appointmentTime" required>
+                                                                <option selected>Select Time Slot</option>
+                                                                <option value="0">9:00 AM to 11:00 AM</option>
+                                                                <option value="1">1:00 PM to 3:00 PM</option>
+                                                                <option value="2">4:00 PM to 7:00 PM</option>
+                                                                <option value="3">8:00 PM to 10:00 PM</option>
+                                                            </select>
+                                                        </div>
+                                                        <input class="btn btn-primary" type="submit" value="Submit">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                {% include 'user/footer.html' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../static/adminResources/js/vendor.bundle.base.js"></script>
+<script src="../../static/adminResources/js/off-canvas.js"></script>
+<script src="../../static/adminResources/js/hoverable-collapse.js"></script>
+<script src="../../static/adminResources/js/template.js"></script>
+<script src="../../static/adminResources/js/settings.js"></script>
+<script src="../../static/adminResources/js/todolist.js"></script>
+<script src="../../static/adminResources/js/jquery.validate.min.js"></script>
+<script src="../../static/adminResources/js/bootstrap-maxlength.min.js"></script>
+<script src="../../static/adminResources/js/form-validation.js"></script>
+<script src="../../static/adminResources/js/bt-maxLength.js"></script>
+<script src="../../static/adminResources/js/file-upload.js"></script>
+<script src="../../static/adminResources/js/jquery.toast.min.js"></script>
+<script src="../../static/adminResources/js/toaster.js"></script>
+<script src="../../static/adminResources/js/customvalidation.js"></script>
+</body>
+</html>

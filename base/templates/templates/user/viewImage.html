@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Health care chatbot</title>
+    <link rel="stylesheet" href="../../static/adminResources/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/style.css">
+    <link rel="shortcut icon" href="../../static/adminResources/image/favicon.png"/>
+</head>
+<body class="sidebar-light">
+<div class="container-scroller">
+    {% include 'user/header.html' %}
+    <div class="container-fluid page-body-wrapper">
+        {% include 'user/menu.html' %}
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 style="background-image: linear-gradient(90deg, #25378b, transparent);height: 50px; padding:20px 0px 40px 20px; color: white"
+                            class="card-title">View Detection</h4>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table id="order-listing" class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Date & Time</th>
+                                            <th>Input Image</th>
+                                            <th>Detection Status</th>
+                                            <th>View Details</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for row in classification_vo_list %}
+                                            <tr>
+                                                <td>{{ row['classification_datetime'] }}</td>
+                                                <td>
+                                                    <a href="{{ row.classification_input_filepath+row.classification_input_filename }}"
+                                                       target="_blank">{{ row.classification_input_filename }}
+                                                    </a>
+                                                </td>
+
+                                                <td><label class="badge badge-success">Detected</label>
+                                                </td>
+
+                                                <td>
+                                                    <a href="/user/suggest_details?classificationId={{ row["classification_id"] }}"><i class="mdi mdi-account-search " ;
+                                                                  style="font-size: 20px ; margin-left: 15px; color: #ff4b2d"></i></a>
+                                                </td>
+
+                                                <td>
+{#                                                    <a href=""><i class="mdi mdi-pencil-box"#}
+{#                                                                  style="font-size: 20px ; margin-left: 15px"></i></a>#}
+                                                    <a href="/user/delete_image?classificationId={{ row["classification_id"] }}"><i class="mdi mdi-delete " ;
+                                                                  style="font-size: 20px ; margin-left: 15px; color: #ff4b2d"></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% include 'user/footer.html' %}
+        </div>
+    </div>
+</div>
+<script src="../../static/adminResources/js/vendor.bundle.base.js"></script>
+<script src="../../static/adminResources/js/off-canvas.js"></script>
+<script src="../../static/adminResources/js/hoverable-collapse.js"></script>
+<script src="../../static/adminResources/js/template.js"></script>
+<script src="../../static/adminResources/js/settings.js"></script>
+<script src="../../static/adminResources/js/todolist.js"></script>
+<script src="../../static/adminResources/js/jquery.dataTables.js"></script>
+<script src="../../static/adminResources/js/dataTables.bootstrap4.js"></script>
+<script src="../../static/adminResources/js/data-table.js"></script>
+</body>
+
+</html>
