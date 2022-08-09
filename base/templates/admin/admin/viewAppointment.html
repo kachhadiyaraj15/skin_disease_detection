@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Health care chatbot</title>
+    <link rel="stylesheet" href="../../static/adminResources/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/style.css">
+    <link rel="shortcut icon" href="../../static/adminResources/image/favicon.png"/>
+</head>
+
+<body class="sidebar-light">
+<div class="container-scroller">
+    {% include 'admin/header.html' %}
+
+    <div class="container-fluid page-body-wrapper">
+
+        {% include 'admin/menu.html' %}
+
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">View Appointments</h4>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table id="order-listing" class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Username</th>
+                                            <th>Detection Date & Time</th>
+                                            <th>Doctor Name</th>
+                                            <th>Doctor Contact No.</th>
+                                            <th>Doctor Mail ID</th>
+                                            <th>Appointment Date</th>
+                                            <th>Appointment Slot</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        {% for row in appointment_vo_list %}
+                                            <tr>
+                                                <td>{{ row[2]['login_username'] }}</td>
+                                                <td>{{ row[3]["classification_datetime"] }}</td>
+                                                <td>{{ row[1]["specialist_name"] }}</td>
+                                                <td>{{ row[1]["specialist_contact"] }}</td>
+                                                <td>{{ row[1]["specialist_email"] }}</td>
+                                                <td>{{ row[0]["appointment_date"] }}</td>
+                                                {% if  row[0]["appointment_time"]=='0' %}
+                                                    <td>{{ "9:00 AM to 11:00 AM" }}</td>
+                                                {% elif row[0]["appointment_time"]=='1' %}
+                                                    <td>{{ "1:00 PM to 3:00 PM" }}</td>
+                                                {% elif row[0]["appointment_time"]=='2' %}
+                                                    <td>{{ "4:00 PM to 7:00 PM" }}</td>
+                                                {% else %}
+                                                    <td>{{ "8:00 PM to 10:00 PM" }}</td>
+                                                {% endif %}
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {% with message = get_flashed_messages() %}
+                                    {% if message %}
+                                        <span style="color: green">{{ message[0] }}</span>
+                                    {% endif %}
+                                {% endwith %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% include 'admin/footer.html' %}
+        </div>
+    </div>
+</div>
+<script src="../../static/adminResources/js/vendor.bundle.base.js"></script>
+<script src="../../static/adminResources/js/off-canvas.js"></script>
+<script src="../../static/adminResources/js/hoverable-collapse.js"></script>
+<script src="../../static/adminResources/js/template.js"></script>
+<script src="../../static/adminResources/js/settings.js"></script>
+<script src="../../static/adminResources/js/todolist.js"></script>
+<script src="../../static/adminResources/js/jquery.dataTables.js"></script>
+<script src="../../static/adminResources/js/dataTables.bootstrap4.js"></script>
+<script src="../../static/adminResources/js/data-table.js"></script>
+</body>
+</html>
